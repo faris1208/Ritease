@@ -412,6 +412,11 @@
     @media (min-width: 992px) {
       min-height: auto;
     }
+
+    @media (max-width: 490px) {
+        min-height: auto;
+        width: 100%;
+      }
   }
   
   .pdfFrame {

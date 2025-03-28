@@ -404,6 +404,7 @@ const updatePdfPreview = useCallback(async () => {
       >
         <label className={styles.uploadLabel}>Upload PDF (drag & drop or click to browse):</label>
         <input 
+        style={{ fontSize: "16px"}}
           type="file" 
           accept="application/pdf"
           onChange={handleFileChange}
@@ -440,6 +441,7 @@ const updatePdfPreview = useCallback(async () => {
                     {activeTool === 'comment' && 'Comment Text'}
                   </label>
                   <input
+                  style={{ fontSize: "16px"}}
                     type="text"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
@@ -456,6 +458,7 @@ const updatePdfPreview = useCallback(async () => {
                 <div className={styles.controlGroup}>
                   <label>Color:</label>
                   <input
+                  style={{ fontSize: "16px"}}
                     type="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
@@ -492,6 +495,7 @@ const updatePdfPreview = useCallback(async () => {
                 <label>Position:</label>
                 <div className={styles.positionInputs}>
                   <input
+                  style={{ fontSize: "16px"}}
                     type="number"
                     value={position.x}
                     onChange={(e) => {
@@ -501,6 +505,7 @@ const updatePdfPreview = useCallback(async () => {
                     placeholder="X"
                   />
                   <input
+                  style={{ fontSize: "16px"}}
                     type="number"
                     value={position.y}
                     onChange={(e) => {
@@ -512,6 +517,7 @@ const updatePdfPreview = useCallback(async () => {
                   {(activeTool === 'highlight' || activeTool === 'underline') && (
                     <>
                       <input
+                      style={{ fontSize: "16px"}}
                         type="number"
                         value={position.width}
                         onChange={(e) => {
@@ -521,6 +527,7 @@ const updatePdfPreview = useCallback(async () => {
                         placeholder="Width"
                       />
                       <input
+                      style={{ fontSize: "16px"}}
                         type="number"
                         value={position.height}
                         onChange={(e) => {
