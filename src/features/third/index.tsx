@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, PDFFont, PDFPage, rgb, StandardFonts } from 'pdf-lib';
 import styles from '../third/styles.module.scss';
 
 type Annotation = {
@@ -11,6 +11,23 @@ type Annotation = {
   color?: string;
   imageData?: string;
 };
+
+type TextOptions = {
+    x: number;
+    y: number;
+    size: number;
+    font: PDFFont;
+    color: ReturnType<typeof rgb>;
+  };
+  
+  type RectangleOptions = {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    color: ReturnType<typeof rgb>;
+    opacity: number;
+  };
 
 export default function PDFEditor() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -216,67 +233,37 @@ export default function PDFEditor() {
     cancelEditing();
   };
 
-  const updatePdfPreview = useCallback(async () => {
-    if (!pdfFile) return;
-    
-    try {
-      const existingPdfBytes = await pdfFile.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(existingPdfBytes);
-      const page = pdfDoc.getPages()[0];
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const applyAnnotationToPage = useCallback(async (
 
-      for (const ann of annotations) {
-        await applyAnnotationToPage(ann, page, helveticaFont);
-      }
-
-      if (previewMode && (content || activeTool === 'signature')) {
-        const previewAnnotation: Annotation = {
-          id: 'preview',
-          type: activeTool,
-          content,
-          position,
-          color,
-          imageData: signatureData || undefined
-        };
-        await applyAnnotationToPage(previewAnnotation, page, helveticaFont, true);
-      }
-
-      const modifiedPdf = await pdfDoc.save();
-      setPdfUrl(URL.createObjectURL(new Blob([modifiedPdf], { type: 'application/pdf' })));
-      
-    } catch (error) {
-      console.error('Error updating PDF preview:', error);
-    }
-  }, [pdfFile, annotations, previewMode, content, activeTool, position, color, signatureData]);
-
-  const applyAnnotationToPage = async (
-    annotation: Annotation, 
-    page: any, 
-    font: any,
+    annotation: Annotation,
+    page: PDFPage,
+    font: PDFFont,
     isPreview = false
   ) => {
     switch (annotation.type) {
       case 'text':
-        page.drawText(annotation.content, {
+        const textOptions: TextOptions = {
           x: annotation.position.x,
           y: annotation.position.y,
           size: 12,
           font,
-          color: isPreview ? rgb(0, 0, 0.5) : rgb(0, 0, 0),
-        });
+          color: isPreview ? rgb(0, 0, 0.5) : rgb(0, 0, 0)
+        };
+        page.drawText(annotation.content, textOptions);
         break;
         
       case 'highlight':
         if (annotation.color) {
           const rgbColor = hexToRgb(annotation.color);
-          page.drawRectangle({
+          const rectOptions: RectangleOptions = {
             x: annotation.position.x,
             y: annotation.position.y,
             width: annotation.position.width,
             height: annotation.position.height,
             color: rgb(rgbColor.r / 255, rgbColor.g / 255, rgbColor.b / 255),
-            opacity: isPreview ? 0.3 : 0.5,
-          });
+            opacity: isPreview ? 0.3 : 0.5
+          };
+          page.drawRectangle(rectOptions);
         }
         break;
         
@@ -325,7 +312,43 @@ export default function PDFEditor() {
         }
         break;
     }
-  };
+}, []);
+
+const updatePdfPreview = useCallback(async () => {
+    if (!pdfFile) return;
+    
+    try {
+      const existingPdfBytes = await pdfFile.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+      const page = pdfDoc.getPages()[0];
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+      // Apply saved annotations
+      for (const ann of annotations) {
+        await applyAnnotationToPage(ann, page, helveticaFont);
+      }
+
+      // If in preview mode, add the current annotation
+      if (previewMode && (content || activeTool === 'signature')) {
+        const previewAnnotation: Annotation = {
+          id: 'preview',
+          type: activeTool,
+          content,
+          position,
+          color,
+          imageData: signatureData || undefined
+        };
+        await applyAnnotationToPage(previewAnnotation, page, helveticaFont, true);
+      }
+
+      const modifiedPdf = await pdfDoc.save();
+      setPdfUrl(URL.createObjectURL(new Blob([modifiedPdf], { type: 'application/pdf' })));
+      
+    } catch (error) {
+      console.error('Error updating PDF preview:', error);
+    }
+  }, [pdfFile, annotations, previewMode, content, activeTool, position, color, signatureData, applyAnnotationToPage]);
+  
 
   const downloadPdf = async () => {
     if (!pdfFile || !downloadRef.current) return;
@@ -359,6 +382,8 @@ export default function PDFEditor() {
   useEffect(() => {
     updatePdfPreview();
   }, [annotations, updatePdfPreview]);
+
+
   
 
   return (
