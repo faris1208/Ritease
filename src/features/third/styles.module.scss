@@ -1,0 +1,532 @@
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+    }
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  
+    h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+  
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
+  
+    p {
+      color: #6c757d;
+      font-size: 1rem;
+  
+      @media (max-width: 768px) {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .uploadSection {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #ced4da;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      border-color: #adb5bd;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .uploadLabel {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+  
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  .uploadInput {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s;
+  
+    @media (max-width: 768px) {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .editorContainer {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  
+    @media (max-width: 768px) {
+      border-radius: 6px;
+    }
+  }
+  
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: #343a40;
+    padding: 0.75rem;
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      gap: 0.3rem;
+    }
+  }
+  
+  .toolButton {
+    padding: 0.5rem 1rem;
+    background: #495057;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    flex: 1 0 auto;
+    min-width: 80px;
+    text-align: center;
+  
+    &:hover {
+      background: #5a6268;
+    }
+  
+    &.active {
+      background: #0d6efd;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      min-width: 60px;
+    }
+  
+    @media (max-width: 480px) {
+      min-width: 50px;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.5rem;
+    }
+  }
+  
+  .editorPanel {
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+  
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
+  }
+  
+  .controls {
+    flex: 0 0 100%;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    overflow-y: auto;
+    max-height: 400px;
+  
+    @media (min-width: 992px) {
+      flex: 0 0 350px;
+      border-right: 1px solid #dee2e6;
+      border-bottom: none;
+      max-height: none;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.8rem;
+    }
+  }
+  
+  .controlGroup {
+    margin-bottom: 1.25rem;
+  
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .controlGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+  
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
+    }
+  }
+  
+  .controlGroup input,
+  .controlGroup textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  
+    @media (max-width: 768px) {
+      padding: 0.4rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .controlGroup textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  .positionInputs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  
+    input {
+      flex: 1;
+      min-width: 60px;
+    }
+  
+    @media (max-width: 480px) {
+      gap: 0.3rem;
+    }
+  }
+  
+  .colorPicker {
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    padding: 0;
+    border: 1px solid #ced4da;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  
+    button {
+      flex: 1;
+    }
+  
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+  }
+  
+  .saveButton {
+    padding: 0.6rem;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #218838;
+    }
+  
+    &:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .cancelButton {
+    padding: 0.6rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #c82333;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .previewButton {
+    padding: 0.6rem;
+    background: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #138496;
+    }
+  
+    &:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .annotationsList {
+    margin-top: 1.5rem;
+  
+    h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+  
+      @media (max-width: 768px) {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .annotationItem {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    cursor: move;
+    transition: all 0.2s;
+  
+    &:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.6rem;
+    }
+  }
+  
+  .annotationContent {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .annotationActions {
+    display: flex;
+    gap: 0.5rem;
+  
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+  }
+  
+  .editButton {
+    padding: 0.3rem 0.6rem;
+    background: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #e0a800;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+  
+  .deleteButton {
+    padding: 0.3rem 0.6rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #c82333;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+  
+  .previewArea {
+    flex: 1;
+    background: #e9ecef;
+    position: relative;
+    min-height: 400px;
+  
+    @media (min-width: 992px) {
+      min-height: auto;
+    }
+  }
+  
+  .pdfFrame {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border: none;
+  
+    @media (max-width: 768px) {
+      min-height: 400px;
+    }
+  }
+  
+  .previewOverlay {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    z-index: 10;
+    text-align: center;
+  
+    @media (max-width: 768px) {
+      width: 90%;
+      font-size: 0.8rem;
+      padding: 0.4rem;
+    }
+  }
+  
+  .signatureCanvas {
+    border: 1px solid #ced4da;
+    background: white;
+    margin-bottom: 0.5rem;
+    cursor: crosshair;
+    width: 100%;
+    height: 150px;
+  
+    @media (max-width: 768px) {
+      height: 120px;
+    }
+  }
+  
+  .signatureActions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .secondaryButton {
+    padding: 0.5rem 1rem;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background: #5a6268;
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .downloadSection {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .downloadButton {
+    padding: 0.75rem 1.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+  
+    &:hover {
+      background: #0069d9;
+      transform: translateY(-1px);
+    }
+  
+    &:active {
+      transform: translateY(0);
+    }
+  
+    @media (max-width: 768px) {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Drag and drop states */
+  .dragOver {
+    border-color: #007bff !important;
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+  
+  .dragging {
+    opacity: 0.8;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
